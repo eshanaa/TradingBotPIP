@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="generator" content="CoffeeCup HTML Editor (www.coffeecup.com)">
+    <meta name="dcterms.created" content="Mon, 08 May 2023 03:10:12 GMT">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Random Walk and White Noise Explained</title>
+
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  	<style>
+    .block {
+      display: block;
+      width: 50%;
+      border: none;
+      background-color: #000000;
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+  	</style>
+  		<h1>Below is an explanation for white noise and random walk in the context of ARIMA models.</h1>
+		  <br>
+		<p>In the context of ARIMA (Autoregressive Integrated Moving Average) models, white noise and random walk are important concepts that describe different types of time series behavior. <br><br>
+
+White noise is a type of time series in which the values are uncorrelated and have constant variance. This means that each observation is independent of all the others and has the same probability distribution. The autocorrelation function of a white noise series is close to zero for all lags, indicating that there is no correlation between any pair of observations.<br><br>
+
+On the other hand, a random walk is a type of time series in which each observation is the sum of the previous observation and a random shock or error term. In other words, the series has a tendency to move in the direction of its previous value, but with some random variation added in. The autocorrelation function of a random walk series is high for small lags, indicating that there is a strong positive correlation between neighboring observations.<br><br>
+
+In the context of ARIMA modeling, both white noise and random walk are important to consider. A white noise series can be easily modeled with an ARMA (Autoregressive Moving Average) model, as the lack of autocorrelation means that there is no need to include an autoregressive component. On the other hand, a random walk series can be modeled with a differenced ARMA model, known as an ARIMA model. By taking first differences, the random walk can be transformed into a stationary series that can be modeled with an ARMA model.<br><br>
+
+In summary, white noise and random walk are two different types of time series behavior that are important to consider when modeling time series data with ARIMA models. White noise has no autocorrelation, while a random walk has a strong positive autocorrelation for small lags. ARMA models are used to model white noise, while ARIMA models are used to model random walks by taking first differences to obtain a stationary series.</p>
+
+<br><br>
+
+  		  <a id="dashboard" href="dashboard">
+    	  <button class="block"><b>See Dashboard</b></button>
+  		  </a>
+
+		  <br><br><br><br><br><br><br><br>
+		  <a id="back" href="select_program"><button><b>Home</b></button></a>
+
+  </body>
+</html>

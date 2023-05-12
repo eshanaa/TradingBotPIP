@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="generator" content="CoffeeCup HTML Editor (www.coffeecup.com)">
+    <meta name="dcterms.created" content="Mon, 08 May 2023 03:10:12 GMT">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Non-Seasonal ARIMA Explained</title>
+
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  	<style>
+    .block {
+      display: block;
+      width: 50%;
+      border: none;
+      background-color: #000000;
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+  	</style>
+  		<h1>Below is an explanation for how the "Non-Seasonal ARIMA" model is utilized.</h1>
+		  <br>
+		  <br>
+		  <h2>Data Transforming Step 1:</h2>
+		  <p>Apply the Augmented Dickey-Fuller test on the model. It will return the number of differences needed to turn the model stationary. Only proceed if “d” is <= 2</p>
+		  <br>
+		  <h3>Alternate Data Transforming Step A:</h3>
+		  <p>Visually check if the time series data can be transformed into a more linear shape through a nonlinear transformation such as taking the logn() or raising to a power. This only applies to non-seasonal models.
+</p>
+		  <br>
+		  <h3>Alternate Data Transforming Step B:</h3>
+		  <p>Let “Y” denote the times series. If after Step 1, the data is “nonstationary” ie. is linear, nonlinear, or random-walk, apply a first-difference transformation.
+</p>
+		  <br>
+		  <h3>Alternate Data Transforming Step C:</h3>
+		  <p>If Y is still non-stationary, repeat Step 2 by taking another first difference of the time series (ie. the second difference in total). If the data still does not behave in a stationary manner, give up trying to use ARIMA for this dataset. <br><br> Let “d” denote the number of differences it took to make Y stationary.
+Let “y” denote the standardized time series.</p>
+<br>
+		  <h3>Note:</h3>
+		  <p>The general idea here is: The forecast of y at time t = constant + weighted average of the last “p” values of y + weighted sum of the last “q” forecast errors.</p>
+		  <br>
+		  <br>
+		  <h2>Parameter Selection Step 1:</h2>
+		  <p>Run an Autocorrelation Function (ACF) on y. Then run a Partial Autocorrelation Function (PACF) on y.<br><br>An ACF answers the question: if I were to pick one random data point along the time series and also select one of its “k”-th previous data points, what would be the best regression coefficient for the “k” previous data point.
+<br><br>A PACF answers the question:  if I were to pick one random data point along the time series and also select all of the data points up to its “j”-th previous data points, what would be the best regression coefficient for all the data points up to the “j” previous data point. We interpret it as the amount of correlation between y(t) and y(t-j) that is not already explained by the lags between them.
+<br><br>If the ACF plot cuts off sharply at lag k and extremely low in significance at the next higher lax and the ones that follow AND there is a more gradual “decay” in the PACF plot, then p for MA(p) = k and q = 0.
+</p>
+<br>
+		  <img src="https://i.stack.imgur.com/8ECds.png">
+		  <h2>Parameter Selection Step 2:</h2>
+		  <p>If the PACF plot cuts off sharply at lag k and extremely low in significance at the next higher lax and the ones that follow AND there is a more gradual “decay” in the ACF plot, then q for MA(q) = k and p = 0.</p>
+		  <br>
+		  <h2>Parameter Selection Step 3:</h2>
+		  <p>If there is a single spike at lag 1 in both the ACF and PACF plots:</p>
+		  <ul>
+		  	  <li>If the spike is positive, set p=1 and q=0; AR(1) signature</li>
+			  <li>If the spike is negative, set p=0 and q=1; MA(1) signature</li>
+		  </ul>
+		  <br>
+		  <img src="https://i.imgur.com/J7rJC2F.jpg">
+		  <br>
+		  <h3>Note 2:</h3>
+		  <p>If there are no significant autocorrelations (no spikes), this is either a mean model or a random walk model. Cannot use ARIMA.</p>
+		  <br>
+		  <br>
+		  <h2>Model Validation Step 1:</h2>
+		  <p>After fitting an ARIMA (p, r, q), plot the residuals. Then run an ACF and PACF on the residuals. There should not be any significant “spikes” in the first few lags of the ACF or PACF plot.<br><br>If there are spikes, new parameters need to be selected.</p>
+		  <br>
+		  <h2>Model Validation Step 2:</h2>
+		  <p>The highest order of the AR or MA coefficient should have a t-value greater than 2 and correspondingly a P-value less than 0.05.<br><br>Note that, for example, if an AR(2) model is chosen, there will be a coefficient for a lag of two as well as for a lag of 1. The coefficient of the second lag is what we care about in this case. We cannot get rid of the lag of 1, the model will automatically generate a coefficient for all smaller lags of the highest AR or MA coefficient.<br><br>If the highest order of the AR or MA coefficient does not have a t-value greater than 2, then remove it and add an order to the other AR/MA type or transform the data again.</p>
+		  <br>
+		  <h3>Note 3:</h3>
+		  <p>In nonseasonal models, if the 1st lag autocorrelation is zero or negative at the current order of differencing, the series almost certainly does not need a higher order of differencing.<br><br>Should generally avoid using both AR and MA terms in the same nonseasonal ARIMA model because they may end up working against each other and canceling effects.</p>
+		  <br>
+		  <img src="https://i.imgur.com/Xr513mm.jpg">
+		  <br>
+		  <br>
+
+
+
+
+  		  <a id="dashboard" href="dashboard">
+    	  <button class="block"><b>See Dashboard</b></button>
+  		  </a>
+		  		  <br><br><br><br><br><br><br><br>
+		  <a id="back" href="select_program"><button><b>Home</b></button></a>
+
+  </body>
+</html>
